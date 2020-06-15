@@ -1,0 +1,32 @@
+.normalizeList{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    > li + li{
+        margin-top: 15px;
+    }
+}
+.orderlist{
+    > li {
+        display: table;
+        width: 100%;
+        > div {
+            display: table-cell;
+            width: 30px;
+            > span {
+                display: inline-block;
+                width: 1.8em;
+                height: 1.8em;
+                border-radius: 100%;
+                border: 1px solid var(--main-color-1);
+                text-align: center;
+                padding: 0;
+                color: var(--main-color-1);
+                line-height: 2em;
+                line-height: 1.8em;
+                font-weight: bold;
+                font-size: 12px;
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/index.css">
+    </head>
+    <body>
+        <!--The Main Thing-->
+        <div class="wrapper-horizontal">
+            <div id="wrapper">
+                <div class="phone view_3" id="phone_1">
+                    <iframe src="http://localhost:8080" id="frame_1"></iframe>
+                </div>
+            </div>
+            
+            <div id="wrapper">
+                <div class="phone view_3" id="phone_2">
+                    <iframe src="http://localhost:8080" id="frame_2"></iframe>
+                </div>
+            </div>
+        </div>
+        <div id="wrapper">
+            <div class="phone view_3" id="phone_3">
+                <iframe src="http://localhost:8080" id="frame_3"></iframe>
+            </div>
+        </div>
+        <!--Controls etc.-->
+        <!-- <div id="controls">
+            <div>
+            <label for="iframeURL">URL:</label>
+                <input type="text" id="iframeURL" placeholder="https://codepen.io" value="https://codepen.io" />
+            </div>
+            <div>
+            <label for="iframeWidth">Width:</label>
+                <input type="number" id="iframeWidth" placeholder="400" value="400" />
+            </div>
+            <div>
+            <label for="iframeHeight">Height:</label>
+                <input type="number" id="iframeHeight" placeholder="650" value="650" />
+            </div>
+            <div>
+            <label for="iframePerspective">Add perspective:</label>
+                <input type="checkbox" id="iframePerspective" checked="true" />
+            </div>
+        </div>
+        <div id="views">
+            <button value="1">View 1 - Laying</button>
+            <button value="2">View 2 - Side</button>
+            <button value="3">View 3 - Front</button>
+        </div> -->
+        <script>
+            var size = {
+                iPhone8: [375, 667],
+                iPhoneX: [375, 812],
+                iPad: [768, 1024]
+            }
+            /*Only needed for the controls*/
+            var phone1 = document.getElementById("phone_1"),
+            phone2 = document.getElementById("phone_2"),
+            phone3 = document.getElementById("phone_3"),
+            iframe1 = document.getElementById("frame_1"),
+            iframe2 = document.getElementById("frame_2"),
+            iframe3 = document.getElementById("frame_3");
+
+            phone1.style.width = size.iPhone8[0] + "px";
+            phone1.style.height = size.iPhone8[1] + "px";
+            phone2.style.width = size.iPhoneX[0] + "px";
+            phone2.style.height = size.iPhoneX[1] + "px";
+            phone3.style.width = size.iPad[0] + "px";
+            phone3.style.height = size.iPad[0] + "px";
+
+            
+            /*View*/
+            // function updateView(view) {
+            //     if (view) {
+            //         phone.className = "phone view_" + view;
+            //     }
+            // }
+
+            // /*Controls*/
+            // function updateIframe() {
+            //     iframe1.src = document.getElementById("iframeURL").value;
+
+            //     phone.style.width = document.getElementById("iframeWidth").value + "px";
+            //     phone.style.height = document.getElementById("iframeHeight").value + "px";
+
+            //     /*Idea by /u/aerosole*/
+            //     document.getElementById("wrapper").style.perspective = (
+            //         document.getElementById("iframePerspective").checked ? "1000px" : "none"
+            //     );
+            // }
+            // updateIframe();
+
+            // /*Events*/
+            // document.getElementById("controls").addEventListener("change", function() {
+            //     updateIframe();
+            // });
+
+            // document.getElementById("views").addEventListener("click", function(evt) {
+            //     updateView(evt.target.value);
+            // });
+        </script>
+    </body>
+</html>

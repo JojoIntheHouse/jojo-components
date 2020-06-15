@@ -1,0 +1,46 @@
+.container{
+    height: inherit;
+    position: relative;
+    overflow: hidden;
+}
+.tab {
+    text-align: center;
+    line-height: 32px;
+    text-decoration: none;
+    font-size: var(--main-font-lead);
+    color: var(--main-bf-color1-light);
+    transition: all .3s;
+    &.active{
+        color: var(--main-bf-color1);
+    }
+}
+.underline{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid var(--main-color-1);
+    transition: all .3s .1s;
+}
+.grow{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    > a.tab {
+        display: block;
+        flex: 1,
+    }
+
+    > a.tab:first-child {
+        text-align: left;
+    }
+    > a.tab.last{
+        text-align: right;
+    }
+}
+
