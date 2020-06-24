@@ -1,5 +1,7 @@
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+// const isProd = process.env.NODE_ENV === 'production'
 module.exports = {
     mode: 'production',
     entry: path.resolve(__dirname, '../src/index.js'),
@@ -9,9 +11,9 @@ module.exports = {
         libraryTarget: 'commonjs2',
         path: path.resolve(__dirname, '../dist')
     },
-    optimization: {
-        minimize: false
-    },
+    // optimization: {
+    //     minimize: false
+    // },
     module: {
         rules: [
             {
@@ -71,5 +73,6 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
+        // new BundleAnalyzerPlugin({ analyzerPort: 8081 }) 
     ],
 }

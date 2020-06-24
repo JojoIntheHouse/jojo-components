@@ -31,7 +31,6 @@ const PreventGhostClick = (function(window, document) {
      * @param {MouseEvent} ev
      */
     function preventGhostClick(ev) {
-        console.log('preventGhostClick')
         for (var i = 0; i < coordinates.length; i++) {
             var x = coordinates[i][0];
             var y = coordinates[i][1];
@@ -71,7 +70,6 @@ const PreventGhostClick = (function(window, document) {
         if(ev.touches.length - ev.changedTouches.length <= 0) {
             var touch = ev.changedTouches[0];
             coordinates.push([touch.clientX, touch.clientY]);
-            console.log(coordinates)
             setTimeout(popCoordinates, timeout);
         }
     }
@@ -94,14 +92,12 @@ export default {
     install(Vue, options){
         Vue.directive("tap", {
             bind: function(el, binding) {
-                console.log(el)
                 if(!options.touchenable) return 
                 if (binding.arg === 'stop' || typeof binding.value === "function") {
                     const mc = new Hammer(el);
                     mc.options.domEvents = true
                     PreventGhostClick(el);
                     mc.on("tap", function(ev){
-                        console.log(ev);
                         if(binding.arg === 'stop')
                             ev.srcEvent.stopImmediatePropagation();
                         // ev.srcEvent.preventDefault();
