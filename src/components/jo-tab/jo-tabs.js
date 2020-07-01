@@ -20,6 +20,7 @@ export default {
     },
     data(){
         return {
+            lastView: null,
             currentView: 0,
             tabindex: 0,
             orientation: 'right',
@@ -32,15 +33,54 @@ export default {
         selectTab(tab) {
             return (e) => {
                 let currIndex = this.currentView
+                this.lastView = currIndex
                 let index = this.cache.indexOf(tab)
                 this.tabindex = this.tabs.indexOf(tab)
                 this.orientation = currIndex > index ? 'left': 'right';
                 this.currentView = index;
             }
         },
-        extractProps(vnode){
-            return vnode.componentOptions.propsData
-        }
+        extractData(vnode){
+            return vnode.data
+        },
+        renderHeaders(h){
+            return this.tabs.map( (tab, idx) => {
+                const name = this.extractData(tab).key
+                const clickHanlder = this.selectTab(tab);
+                return h('a', {
+                    'class': {
+                        [$style.tab]: true,
+                        [$style.active]: this.tabindex === idx,
+                        [$style.last]: idx === this.tabs.length-1
+                    },
+                    attrs: {
+                        href: '#',
+                    },
+                    directives: [
+                        {
+                            name: 'tap',
+                            value: clickHanlder,
+                        }
+                    ],
+                    on:{
+                        click: clickHanlder
+                    }
+                }, name)
+            });
+        },
+        renderItems(h){
+            return this.tabs.map(( tab, idx ) => {
+                return h('tab-transition', 
+                    {
+                        props: {
+                            direction: this.orientation,
+                            isShow: this.tabindex === idx,
+                            isOverLap: this.tabindex === idx,
+                        },
+                    }, 
+                    [ tab ]);  
+            })
+        },
     },
     destroyed () {
         for (const key in this.cache) {
@@ -48,29 +88,6 @@ export default {
         }
     },
     render(h){
-        let headers = this.tabs.map( (tab, idx) => {
-            const name = this.extractProps(tab).name
-            const clickHanlder = this.selectTab(tab);
-            return h('a', {
-                'class': {
-                    [$style.tab]: true,
-                    [$style.active]: this.tabindex === idx,
-                    [$style.last]: idx === this.tabs.length-1
-                },
-                attrs: {
-                    href: '#',
-                },
-                directives: [
-                    {
-                        name: 'tap',
-                        value: clickHanlder,
-                    }
-                ],
-                on:{
-                    click: clickHanlder
-                }
-            }, name)
-        })
 
         const underline = h('div', {
             'class': [ $style.underline ], 
@@ -84,7 +101,7 @@ export default {
         let head = h('div', {
             'class': [$style.grow]
         }, [
-            ...headers,
+            ...this.renderHeaders(h),
             underline
         ])
 
@@ -94,17 +111,7 @@ export default {
                 {
                     'class': [$style.container],
                 },
-                [
-                    h('tab-transition', 
-                        {
-                            props: {
-                                direction: this.orientation,
-                            },
-                        }, 
-                        [
-                            this.$slots.default[this.currentView]
-                        ])
-                ]
+                this.renderItems(h),
             )
         ]);
         vnode.data = {

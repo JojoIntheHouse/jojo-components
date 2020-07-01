@@ -1,9 +1,19 @@
 <template>
     <transition
-        mode='out-in' 
-        :enter-active-class="$style[`slide-${direction}-enter-active`]"
-        :leave-active-class="$style[`slide-${direction}-leave-active`]">
-            <slot></slot>
+        v-on:before-enter="beforeEnter"
+        v-on:enter="enter"
+        v-on:after-enter="afterEnter"
+        v-on:enter-cancelled="enterCancelled"
+
+        v-on:before-leave="beforeLeave"
+        v-on:leave="leave"
+        v-on:after-leave="afterLeave"
+        v-on:leave-cancelled="leaveCancelled"
+        :enter-active-class="enterClass"
+        :leave-active-class="leaveClass">
+            <div v-show="isShow">
+                <slot></slot>
+            </div>
     </transition>
 </template>
 
@@ -11,18 +21,83 @@
 export default {
     props: {
         direction: { type: String, default: 'right' }, 
+        isShow: { type: Boolean, default: false }, 
+        isOverLap: { type: Boolean, default: false }, 
     },
+    data(){
+        return {
+            isAnimation: false,
+        }
+    },
+    computed: {
+        enterClass(){
+            const {
+                $style, direction
+            } = this;
+            const transform = $style[`slide-${direction}-enter-active`];
+            if(this.isOverLap){
+                return [
+                    transform, this.$style.overlap
+                ].join(' ');
+            }
+            return transform
+        },
+        leaveClass(){
+            const {
+                $style, direction
+            } = this;
+            const transform = $style[`slide-${direction}-leave-active`];
+            if(this.isOverLap){
+                return [
+                    transform, this.$style.overlap
+                ].join(' ');
+            }
+            return transform
+        }
+    },
+    methods: {
+        beforeEnter(el){
+            console.log('beforeEnter: ' )
 
+        },
+        enter(el){
+             console.log('enter: ' )
+        },
+        afterEnter(el){
+
+        },
+        enterCancelled(el){
+            console.log('enterCancelled ' )
+        },
+        beforeLeave(el){
+
+        },
+        leave(el){
+
+        },
+        afterLeave(el){
+
+        },
+        leaveCancelled(el){
+
+        }
+    }
 }
 </script>
 
 <style lang="scss" module>
 
-.tabpage{
+// .tabpage{
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     width: 100%;
+// }
+.overlap{
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
+    z-index: 1;
 }
 
 .slide-right-enter-active{
@@ -76,19 +151,3 @@ export default {
     }
 } 
 </style>
-import $style from './jo-tabs.scss'
-export default {
-    functional: true,
-    render: function (createElement, context) {
-        const direction = context.props.direction;
-        console.log(context)
-        const data = {
-            props: {
-                'enter-active-class': $style[`slide-${direction}-enter-active`],
-                'leave-active-class': $style[`slide-${direction}-leave-active`],
-                mode: 'out-in' 
-            },
-        }
-        return createElement('transition', data, context.children)
-    }
-}

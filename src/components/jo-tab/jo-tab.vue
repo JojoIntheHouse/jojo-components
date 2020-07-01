@@ -1,12 +1,12 @@
 <template>
-    <div :class="$style.tabpage" :key="name"><slot></slot></div>
+    <div :class="$style.tabpage"><slot></slot></div>
 </template>
 
 <script>
 export default {
     name: 'jo-tab',
     props: {
-        name: { required: true },
+        // key: { required: true },
         selected: { default: false},
     },
 }
@@ -16,8 +16,10 @@ export default {
 .tabpage{
     // position: absolute;
     position: relative;
+    // background-color: #fff;
     left: 0;
     top: 0;
     width: 100%;
+    
 }
 </style>

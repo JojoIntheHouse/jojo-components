@@ -3,6 +3,10 @@
     position: relative;
     overflow: hidden;
 }
+.slideContainer{
+    display: flex;
+    flex-direction: row;
+}
 .tab {
     text-align: center;
     line-height: 32px;
