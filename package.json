@@ -1,6 +1,6 @@
 {
   "name": "jojo-components",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/main.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "http-status-codes": "^1.4.0",
     "mini-css-extract-plugin": "^0.9.0",
     "multer": "^1.4.2",
+    "node-json-minify": "^1.0.0",
     "node-sass": "^4.14.1",
     "progress-stream": "^2.0.0",
     "sass-loader": "^8.0.2",

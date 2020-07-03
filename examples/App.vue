@@ -4,11 +4,11 @@
     <div :class="$style.linearLayout">
         <div>
             <jo-tabs>
-                <jo-tab name="tab1" :selected="true">
+                <jo-tab key="tab1" :selected="true">
                     Tab1
                     <jo-input title="Email Address" type="email" :value="address" placeholder="请输入邮箱" @change="address = $event" @blur="onInputBlur"></jo-input>
                 </jo-tab>
-                <jo-tab name="tab2">
+                <jo-tab key="tab2" >
                     Tab2
                     <jo-radios groupname="fruit" v-model="fruit">
                         <jo-radio label="Apple" value="apple"></jo-radio>
@@ -16,10 +16,10 @@
                         <jo-radio label="Watermelon" value="watermelon"></jo-radio>
                     </jo-radios>
                 </jo-tab>
-                <jo-tab name="tab3">
+                <jo-tab key="tab3">
                     Tab3
                 </jo-tab>
-                <jo-tab name="tab4">
+                <jo-tab key="tab4">
                     Tab4
                 </jo-tab>
             </jo-tabs>
@@ -50,6 +50,8 @@
         </jo-radios>
         <div>
             <jo-radio :checked="true">Apple</jo-radio>
+        </div>
+        <div>
             <jo-switch v-model="state"></jo-switch>
         </div>
         <div>
@@ -71,15 +73,17 @@
                 <span slot="addbtn">添加行程</span>
             </jo-form-list>
         </div>
-
+        <div>
+            <jo-search v-model="search"></jo-search>
+            <jo-emoji-panel :search="search"  @change="onEmojiClick"></jo-emoji-panel>
+        </div>
         <!-- <div>
             <jo-list :items="list">
                 <div>xxx</div>
             </jo-list>
         </div> -->
-        <div>
+        <!-- <div>
             <jo-list :items="list" isOrdered>
-                <!-- <jo-button>xxx</jo-button> -->
                 <template v-slot:default="item">
                     {{ item }}{{ item }}{{ item }}{{ item }}{{ item }}{{ item }}
                 </template>
@@ -103,7 +107,7 @@
             <div>
                 <jo-input title="Email Address" type="email" :value="address" placeholder="请输入邮箱" @change="address = $event" @blur="onInputBlur"></jo-input>  
             </div>
-        </jo-drawer>
+        </jo-drawer> -->
     </div>
 </div>
 </template>
@@ -112,6 +116,7 @@
 export default {
     data(){
         return {
+            search: '',
             address: '',
             password: '',
             loading: false,
@@ -121,9 +126,9 @@ export default {
             showDrawer: false,
             selected: undefined,
             list: [
-                // { value: 'a', text: 'A'},
-                // { value: 'b', text: 'B'},
-                // { value: 'c', text: 'C'},
+                { value: 'a', text: 'A'},
+                { value: 'b', text: 'B'},
+                { value: 'c', text: 'C'},
             ],
             data: [],
             formData: [],
@@ -162,6 +167,9 @@ export default {
         },
         onInputBlur(value){
             console.log(value)
+        },
+        onEmojiClick(emoji){
+            console.log(emoji)
         }
     }
 }

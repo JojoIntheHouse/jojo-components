@@ -35,23 +35,10 @@ export default {
         prop: 'value',
         event: 'change'
     },
-    created(){
-        console.log('jo-input')  
-    },
     data(){
         return {
             focus: false,
         }
-    },
-    watch: {
-        value(v){
-            console.log(v);
-        }
-    },
-    mounted(){
-        this.$watch('value', (v) => {
-            console.log(v)
-        })
     },
     methods: {
         onChange($event){

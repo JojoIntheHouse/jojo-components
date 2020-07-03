@@ -1,6 +1,9 @@
 const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const JSONMinifyPlugin = require('node-json-minify');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const isProd = process.env.NODE_ENV === 'production'
 module.exports = {
     mode: 'production',
@@ -11,15 +14,35 @@ module.exports = {
         libraryTarget: 'commonjs2',
         path: path.resolve(__dirname, '../dist')
     },
-    // optimization: {
-    //     minimize: false
-    // },
+    optimization: {
+        minimize: true,
+        splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                data: {
+                    test: /\.json/,
+                    name: 'data',
+                    chunks: 'all',
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
+    },
     module: {
         rules: [
             {
                 test: /\.css$/i,
                 use: [
-                    'vue-style-loader',
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: { 
@@ -35,7 +58,7 @@ module.exports = {
             {
                 test: /\.scss$/i,
                 use: [
-                    'vue-style-loader',
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: { 
@@ -73,6 +96,24 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].css',
+            chunkFilename: '[id].css',
+        }),
+        // new CopyPlugin({
+        //     patterns: [
+        //         {
+        //             from: 'src/components/j-emoji-select/data/apple.json',
+        //             transform: function(content) {
+        //                 // minify json
+        //                 return JSONMinifyPlugin(content.toString());
+        //             },
+        //             to: path.resolve(__dirname, '../dist/data')
+        //         },
+        //     ],
+        // }),
         // new BundleAnalyzerPlugin({ analyzerPort: 8081 }) 
     ],
 }

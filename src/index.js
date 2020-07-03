@@ -1,6 +1,7 @@
 import './base/global.css'
 import joButton from './components/jo-button.vue'
 import joInput from './components/jo-input.vue'
+import joSearch from './components/jo-search.vue'
 import joHeader from './components/jo-header.vue'
 import joUpload from './components/jo-upload.vue'
 import joRadio from './components/jo-radio.vue'
@@ -19,6 +20,9 @@ import joLoading from './components/singleton/jo-loading.vue';
 import joTabs from './components/jo-tab/jo-tabs.js';
 import joTab from './components/jo-tab/jo-tab.vue';
 import joList from './components/jo-list/jo-smart-list';
+import joEmojiPanel from './components/j-emoji-select/jo-emoji-panel.vue';
+
+
 import hammerTouch from './directive/hammer-touch.js'
 export default {
     install(Vue, options){
@@ -27,6 +31,7 @@ export default {
         }, options || {})
         Vue.component('jo-button', joButton);
         Vue.component('jo-input', joInput);
+        Vue.component('jo-search', joSearch);
         Vue.component('jo-header', joHeader);
 
         Vue.component('jo-modal', joModal);
@@ -41,6 +46,7 @@ export default {
         // Vue.prototype.$openModal = function() {
         //     joModal
         // }
+        Vue.component('jo-emoji-panel', joEmojiPanel);
 
         Vue.component('jo-chip', joChip);
         Vue.component('jo-textarea', joAutogrowTextarea);
@@ -52,7 +58,7 @@ export default {
         Vue.component('jo-tab', joTab);
 
         Vue.component('jo-list', joList);
-
+        
         const joLoadingConstruction = Vue.extend(joLoading);
         const loadingInstance = new joLoadingConstruction().$mount();
         document.body.appendChild(loadingInstance.$el);

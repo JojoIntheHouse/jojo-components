@@ -81,7 +81,7 @@ module.exports = {
     devServer: {
         contentBase: __dirname,
         publicPath: '/',
-        host: '192.168.3.8', // 调试用
+        // host: '192.168.3.8', // 调试用
         proxy: {
             '/upload': 'http://localhost:3000'
         }
