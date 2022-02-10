@@ -28,7 +28,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "multer": "^1.4.2",
     "node-json-minify": "^1.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "progress-stream": "^2.0.0",
     "sass-loader": "^8.0.2",
     "vue-loader": "^15.9.2",
